@@ -12,10 +12,7 @@ public class File {
 	private int [] ServiceTime;       //服务时间
 	private Random random;            //随机化参数
 	private int [][] TimeMessage;
-	/**
-	 * 构造函数
-	 * @param Pathname 文件路径名
-	 */
+
 	File(String Pathname) {
 		//task = new Task();
 		try {
@@ -88,5 +85,3 @@ public class File {
 		}
 	}
 }
-
-
