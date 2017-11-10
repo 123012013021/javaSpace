@@ -6,9 +6,9 @@ java的I/O操作
  ### 实验过程：
  
 1. 从键盘接收字节流，写入到当前目录下的文件src.txt中：
-！[](http://github.com/123012013021/javaSpace/raw/master/IOstream/img/1.png)
+！[ ](http://github.com/123012013021/javaSpace/raw/master/IOstream/img/1.png)
 src.txt截图：
-！[](http://github.com/123012013021/javaSpace/raw/master/IOstream/img/2.png)
+！[ ](http://github.com/123012013021/javaSpace/raw/master/IOstream/img/2.png)
 
 2. 将src.txt文件内容复制到当src.txt前目录下dest.txt文件中
 ！[](http://github.com/123012013021/javaSpace/raw/master/IOstream/img/3.png)
