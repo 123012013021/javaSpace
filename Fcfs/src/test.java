@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.Scanner;
 public class test {
@@ -7,7 +6,6 @@ public class test {
 		// TODO Auto-generated method stub
 		//main函数
     	fcfsOne f =new fcfsOne();
-    	f.InputData();
     	fcfsTwo a=new fcfsTwo();	
     	System.out.println("1、先到先服务(一个队列)");
     	System.out.println("2、先到先服务(两个队列)");
@@ -27,5 +25,4 @@ public class test {
     	}       
     }
 	}
-
 

@@ -3,7 +3,7 @@ import java.io.FileOutputStream;
 import java.util.Random;
 
 public class task {
-	 int TaskId[];//任务ID
+	    int TaskId[];//任务ID
 		int arrived_time[];//到达时间
 		int server_time[];//服务时间
 		int Task_id[] ;//定义变量
@@ -28,7 +28,7 @@ public class task {
 
 		}
 		
-	    public void InputData(){  //将数据输入到文件里面 	 
+	    public void InputData(){  //将数据输入到文件里面  赋值 	 
 	    	File file = new File("time.txt");//创建文件对象
 	    	int[] numbers = {6,2,1,3,9};//在这个范围里面产生随机数
 	    	if(file.exists()){//判断文件是否存在
@@ -58,6 +58,11 @@ public class task {
 	    		catch(Exception e){
 	    			e.printStackTrace();//输出异常信息
 	    		}
-	    	}
+	    	}}
+	   
+	    
+	    public void FileWrite(String fileName){
+	    	
+	    	
 	    }
 }

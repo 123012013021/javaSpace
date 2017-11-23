@@ -1,70 +1,70 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Scanner;
 public class sjfone extends task{
 	 public void singleSJF(){
-	    	File file = new File("time.txt");//创建文件对象      	
-	    	if(file.exists()){//判断文件是否存在   	
+		 File file = new File("time.txt");
+	        boolean [] Server;
+	        Server =new boolean[100];
+	        for(int i=0;i<100;i++){
+	        	Server[i]=false;
+	        }
+	    	if(file.exists()){  	
 	    		try{   			
-	    		   FileInputStream in = new FileInputStream(file);   //创建FileInputStream对象，将数据信息从文件中读取出来
-	               for(int i=0;i<100;i++){//将文件夹里面的数据读取出来
-	            	   int a=in.read();
-	            	   Task_id[i]=a;
-	            	   int b=in.read();
-	            	   ArrivedTime[i] =b;
-	            	   int c=in.read();            	   
-	            	   ServerTime[i]=c;           	   
-	               }
-	               in.close();
+	    		   FileInputStream in = new FileInputStream(file);   
+	    		   Scanner scan =new Scanner(in);
+	    		   int i=0;
+	    		   while(scan.hasNext()){
+	    			   Task_id[i]=scan.nextInt();
+	    			   ArrivedTime[i]=scan.nextInt();
+	    			   ServerTime[i]=scan.nextInt();
+	    			   i=i+1;
+	    		   }
+	               scan.close();       	            
+		        	   int temp_id=0;//用来短暂存储任务ID 
+		        	   int first_unserver=temp_id;
 
-	               startingTime[0]=ArrivedTime[0];//第一个服务开始时间
-	               finishingTime[0]=ArrivedTime[0]+ServerTime[0];//第一个结束时间
-	               turnAroundTime[0]=finishingTime[0]-startingTime[0];//第一个周转时间
-	               weightTurnAround[0]=turnAroundTime[0]/ServerTime[0];//第一个带权周转时间            	   
-	               System.out.print("Task_id: 1"+"   startingtime:"+startingTime[0]+"  finishingTime:");
-	        	   System.out.print(+finishingTime[0]+"  turnAroundTime:");
-	        	   System.out.print(+turnAroundTime[0]+"     ");
-	        	   System.out.println("weightTurnAround:"+weightTurnAround[0]);
-	        	   int temp_id;//用来短暂存储任务ID       	   
-	        	   int temp;//存储上一个任务完成的时间
-	        	   int temp_AT;//临时到达时间
-	        	   int temp_ST;//临时服务时间
-
-	               for(int i=1;i<100;i++){//这边开始判断短作业
-	            	   temp=finishingTime[i-1];//存储上一个任务完成的时间
-	            	   temp_id=i;
-	            	   if(temp>=99){
-	            		   temp=99;
-	            	   }
-	            	   
-	            	   for(int j=i+1;j<=temp ;j++){
-	            		   if(ServerTime[temp_id]>ServerTime[j]){
-	            			   temp_id=j;
-	            		   }
-	            	   }            	   
-	            	   
-	            	   temp_AT=ArrivedTime[i];           	   
-	            	   ArrivedTime[i]=ArrivedTime[temp_id];
-	            	   ArrivedTime[temp_id]=temp_AT;
-	            	   
-	            	   temp_ST=ServerTime[i];            	   
-	            	   ServerTime[i]=ServerTime[temp_id];
-	            	   ServerTime[temp_id]=temp_ST;
-	            	   startingTime[i]=startingTime[i-1]+ServerTime[i-1];
-	            	   finishingTime[i]=finishingTime[i-1]+ServerTime[i];
-	            	   turnAroundTime[i]=finishingTime[i]-ArrivedTime[i];
-	            	   weightTurnAround[i]=turnAroundTime[i]/ServerTime[i];
-	            	   
-	            	   System.out.print("Task_id:"+(Task_id[i])+"   startingtime:"+startingTime[i]+"     ");
-	            	   System.out.print("  finishingTime:"+finishingTime[i]+"     ");
-	            	   System.out.print("  turnAroundTime:"+turnAroundTime[i]+"     ");
-	            	   System.out.println("  weightTurnAround:"+weightTurnAround[i]);
-	            	   
-	               }
-
-	    		}catch(Exception e){
-	    			e.printStackTrace();
-	    		}
-	    	}
+		        	   int time=0;
+		        	   for(i=0;i<100;i++){
+		        		   for(int j=first_unserver;j<100;j++){
+		        			   if(Server[j]==false){//判断最靠前的任务是否被服务过
+		        				   temp_id=j;
+		        				   break;
+		        			   }
+		        		   }
+		        		   first_unserver=temp_id;
+		        		   for(int k=temp_id+1;k<100 && k<=time;k++){
+		        			   if(Server[k]==true){
+		        				   continue;
+		        			   }
+		        			   if(ServerTime[k]<ServerTime[temp_id] ){
+		        				   temp_id=k;	        				   
+		        			   }
+		        		   }
+		        		   if(ArrivedTime[temp_id]<=time){//如果任务达到时间小于前一个任务完成时间
+		        			   startingTime[temp_id]=time;
+		        			   finishingTime[temp_id]=time+ServerTime[temp_id];
+		        			   turnAroundTime[temp_id]=finishingTime[temp_id]-ArrivedTime[temp_id];
+		        			   weightTurnAround[temp_id]=turnAroundTime[temp_id]/ServerTime[temp_id];
+		        			   System.out.print("这是第"+(temp_id+1)+"个任务  ");
+		        			   System.out.print("开始时间："+startingTime[temp_id]+"结束时间："+finishingTime[temp_id]);
+		        			   System.out.println("周转时间："+turnAroundTime[temp_id]+"带权周转时间："+ weightTurnAround[temp_id]);
+		        		   }else{
+		        			   startingTime[temp_id]=ArrivedTime[temp_id];
+		        			   finishingTime[temp_id]=ArrivedTime[temp_id]+ServerTime[temp_id];
+		        			   turnAroundTime[temp_id]=finishingTime[temp_id]-startingTime[temp_id];
+		        			   weightTurnAround[temp_id]=turnAroundTime[temp_id]/ServerTime[temp_id];
+		        			   System.out.print("这是第"+(temp_id+1)+"个任务  ");
+		        			   System.out.print("开始时间："+startingTime[temp_id]+"结束时间："+finishingTime[temp_id]);
+		        			   System.out.println("周转时间："+turnAroundTime[temp_id]+"带权周转时间："+ weightTurnAround[temp_id]);
+		        		   }
+		        		   time=finishingTime[temp_id];
+		        		   Server[temp_id]=true;
+		        	   }
+		    		}catch(Exception e){
+		    			e.printStackTrace();//输出异常信息
+		    		}
+		    	}
+		    }
 	    }
 
-}

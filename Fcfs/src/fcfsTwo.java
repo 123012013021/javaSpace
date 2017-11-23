@@ -1,55 +1,62 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Scanner;
 public class fcfsTwo  extends  task {
 	public void doubleFCFS(){//先到先服务（双线程）
-    	File file = new File("time.txt");//创建文件对象
-    	
-    	if(file.exists()){//判断文件是否存在   	
+File file = new File("time.txt");
+    	if(file.exists()){
     		try{   			
-    		   FileInputStream in = new FileInputStream(file);   //创建FileInputStream对象，将数据信息从文件中读取出来
-               for(int i=0;i<100;i++){//将文件夹里面的数据读取出来
-            	   int a=in.read();
-            	   Task_id[i]=a;
-            	   int b=in.read();
-            	   ArrivedTime[i] =b;
-            	   int c=in.read();            	   
-            	   ServerTime[i]=c;           	   
-               }
-               in.close();
-               int FirstTime=0;//第一线程的时间
-               int SecondTime=0;//第二线程的时间
-               int MarkTask[];//用来标记采用哪个
+    		   FileInputStream in = new FileInputStream(file);  
+    		   Scanner scan =new Scanner(in);
+    		   int i=0;
+    		   while(scan.hasNext()){
+    			   Task_id[i]=scan.nextInt();
+    			   ArrivedTime[i]=scan.nextInt();
+    			   ServerTime[i]=scan.nextInt();
+    			   i=i+1;
+    		   }
+               scan.close();
+               int FirstTime=0;
+               int SecondTime=0;
+               int MarkTask[];
                MarkTask=new int[100];
-               for(int i=0;i<100;i++){
-            	   if(FirstTime<=ArrivedTime[i]){//如果第一线程是无任务
-            		   startingTime[i]=FirstTime;//记录任务的开始时间
+               for(i=0;i<100;i++){
+            	   if(FirstTime<=ArrivedTime[i]){
+            		   startingTime[i]=FirstTime;
             		   FirstTime=ServerTime[i]+ArrivedTime[i];
             		   finishingTime[i]=FirstTime;
             		   MarkTask[i]=1;
-            	   }else if(SecondTime<=ArrivedTime[i]){//如果第一线程正在任务，而第二线程空闲
+            		  
+            	   }else if(SecondTime<=ArrivedTime[i]){
+            		   if(SecondTime==0) {
+            			   SecondTime=ArrivedTime[i];
+            		   }            		     
             		   startingTime[i]=SecondTime;
             		   SecondTime=ServerTime[i]+ArrivedTime[i];
             		   finishingTime[i]=SecondTime;
             		   MarkTask[i]=2;
-            	   }else if(FirstTime<=SecondTime){//如果第一，第二线程都在工作，那么就判断哪个先结束任务
+            		  
+            	   }else if(FirstTime<=SecondTime){
             		   startingTime[i]=FirstTime;
             		   FirstTime=FirstTime+ServerTime[i];
             		   finishingTime[i]=FirstTime;
             		   MarkTask[i]=1;
+   	
             	   }else{
             		   startingTime[i]=SecondTime;
             		   SecondTime=ServerTime[i]+SecondTime;
             		   finishingTime[i]=SecondTime;
             		   MarkTask[i]=2;
+            		 
             	   }
                }
-               /*计算周转时间，带权周转时间*/
-               for(int i=0;i<100;i++){
+               
+               for( i=0;i<100;i++){
             	   turnAroundTime[i]=finishingTime[i]-ArrivedTime[i];
             	   weightTurnAround[i]=turnAroundTime[i]/ServerTime[i];
                }
                
-               for(int i=0;i<100;i++){
+               for( i=0;i<100;i++){
             	   if(MarkTask[i]==1){
             		   System.out.print("task_id:"+(i+1)+" ");
             		   System.out.print("in one_queque"+"  startingTime:"+startingTime[i]+"  ");

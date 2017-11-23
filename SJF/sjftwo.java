@@ -1,20 +1,21 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Scanner;
 public class sjftwo extends task {
 	 public void doubleSJF(){
-	    	File file = new File("time.txt");   
-	    	if(file.exists()){   	
+	    	File file = new File("time.txt"); 
+	    	if(file.exists()){//鍒ゆ柇鏂囦欢鏄惁瀛樺湪   	
 	    		try{   			
-	    		   FileInputStream in = new FileInputStream(file);   //创建FileInputStream对象，将数据信息从文件中读取出来
-	               for(int i=0;i<100;i++){
-	            	   int a=in.read();
-	            	   Task_id[i]=a;
-	            	   int b=in.read();
-	            	   ArrivedTime[i] =b;
-	            	   int c=in.read();            	   
-	            	   ServerTime[i]=c;           	   
-	               }
-	               in.close();
+	    		   FileInputStream in = new FileInputStream(file);   
+	    		   Scanner scan =new Scanner(in);
+	    		   int i=0;
+	    		   while(scan.hasNext()){
+	    			   Task_id[i]=scan.nextInt();
+	    			   ArrivedTime[i]=scan.nextInt();
+	    			   ServerTime[i]=scan.nextInt();
+	    			   i=i+1;
+	    		   }
+	    		   scan.close();	              
 		           int FirstTime=0;//第一线程的时间
 		           int SecondTime=0;//第二线程的时间
 		           
@@ -22,9 +23,8 @@ public class sjftwo extends task {
 		           ID = new boolean [100];
 		           
 		           int NoServerID=0;//标记队列最前方未服务任务的序号
-		           int min=0;//最短作业所在序号
-		           
-	               for(int i=0;i<100;i++){
+		           int min=0;//最短作业所在序号	           
+	               for( i=0;i<100;i++){
 	            	   for(int j=NoServerID;j<100;j++){
 	            		   if(ID[j]==false){
 	            			   min=j;
@@ -50,7 +50,10 @@ public class sjftwo extends task {
 	            		   System.out.print(startingTime[min]+",   结束时间是"+finishingTime[min]+",  ");
 	            		   System.out.print("周转时间"+turnAroundTime[min]+",  ");
 	            		   System.out.println("带权周转时间是"+weightTurnAround[min]);
-	            	   }else if(SecondTime<=ArrivedTime[min]){//如果第一线程正在运行任务，第二线程空闲
+	            	   }else if(SecondTime<=ArrivedTime[min]){//如果第一线程正在运行任务，第二线程空闲     		
+	            		      if(SecondTime==0) {
+	            			   SecondTime=ArrivedTime[min];
+	            		   }
 	            		   startingTime[min]=SecondTime;
 	            		   SecondTime=ArrivedTime[min]+ServerTime[min];
 	            		   finishingTime[min]=SecondTime;
@@ -62,7 +65,6 @@ public class sjftwo extends task {
 	            		   System.out.println("带权周转时间是"+weightTurnAround[min]);
 	            		   
 	            	   }else if(FirstTime<=SecondTime){
-
 	            		   startingTime[min]=FirstTime;
 	            		   FirstTime=FirstTime+ServerTime[min];
 	            		   finishingTime[min]=FirstTime;
@@ -86,7 +88,6 @@ public class sjftwo extends task {
 	            	   }
 	            	   ID[min]=true;//将该任务已经完成
 	               }
-
 	    		}catch(Exception e){
 	    			e.printStackTrace();//输出异常信息
 	    		}
