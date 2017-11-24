@@ -56,20 +56,26 @@ File file = new File("time.txt");
             	   weightTurnAround[i]=turnAroundTime[i]/ServerTime[i];
                }
                
-               for( i=0;i<100;i++){
+               System.out.println("TaskId ArrivalTime ServiceTime StartingTime FinishingTime TurnAroundTime WeightTurnAround");
+               for(i=0;i<100;i++){
             	   if(MarkTask[i]==1){
-            		   System.out.print("task_id:"+(i+1)+" ");
-            		   System.out.print("in one_queque"+"  startingTime:"+startingTime[i]+"  ");
-            		   System.out.print("finishingTime:"+finishingTime[i]+"  ");
-            		   System.out.print("turnAroundTime"+turnAroundTime[i]+"  ");
-            		   System.out.println("turnAroundTime"+weightTurnAround[i]);            		   
+	            	   System.out.print(+Task_id[i]+"        ");
+	            	   System.out.print(ArrivedTime[i]+"           ");
+	            	   System.out.print(ServerTime[i]+"             ");
+	            	   System.out.print(startingTime[i]+"             ");
+	            	   System.out.print(finishingTime[i]+"             ");
+	            	   System.out.print(turnAroundTime[i]+"             ");
+	            	   System.out.println(weightTurnAround[i]);         		   
             	   }else{
-            		   System.out.print("task_id:"+(i+1)+" ");
-            		   System.out.print("in two_queque"+"  startingTime:"+startingTime[i]+"  ");
-            		   System.out.print("finishingTime:"+finishingTime[i]+"  ");
-            		   System.out.print("turnAroundTime:"+turnAroundTime[i]+"  ");
-            		   System.out.println("turnAroundTime:"+weightTurnAround[i]);
+	            	   System.out.print(+Task_id[i]+"        ");
+	            	   System.out.print(ArrivedTime[i]+"           ");
+	            	   System.out.print(ServerTime[i]+"            ");
+	            	   System.out.print(startingTime[i]+"             ");
+	            	   System.out.print(finishingTime[i]+"             ");
+	            	   System.out.print(turnAroundTime[i]+"            ");
+	            	   System.out.println(weightTurnAround[i]);
             	   }
+            
                }
     		}catch(Exception e){
     			e.printStackTrace();//输出异常信息

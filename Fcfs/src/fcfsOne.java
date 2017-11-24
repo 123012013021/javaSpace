@@ -30,11 +30,16 @@ public class fcfsOne extends  task{
 	            	   turnAroundTime[i]=finishingTime[i]-ArrivedTime[i];
 	            	   weightTurnAround[i]=turnAroundTime[i]/ServerTime[i];
 	               }
-	               for( i=0;i<100;i++){
-	            	   System.out.print("task_id:"+(i+1)+"     "+"start_time:"+startingTime[i]+"     ");
-	            	   System.out.print("finishi_time:"+finishingTime[i]+"     ");
-	            	   System.out.print("turn_around_time:"+turnAroundTime[i]+"     ");
-	            	   System.out.println("weightTurnAround_time:"+weightTurnAround[i]);
+	               System.out.println("TaskId ArrivalTime ServiceTime StartingTime FinishingTime TurnAroundTime WeightTurnAround");
+	               for(i=0;i<100;i++){
+	            	   System.out.print(+Task_id[i]+"          ");
+	            	   System.out.print(ArrivedTime[i]+"         ");
+	            	   System.out.print(ServerTime[i]+"          ");
+	            	   System.out.print(startingTime[i]+"           ");
+	            	   System.out.print(finishingTime[i]+"                 ");
+	            	   System.out.print(turnAroundTime[i]+"                   ");
+	            	   System.out.println(weightTurnAround[i]);
+	             
 	               }
 	    		}catch(Exception e){
 	    			e.printStackTrace();//输出异常信息

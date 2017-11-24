@@ -25,6 +25,8 @@ public class sjfone extends task{
 		        	   int first_unserver=temp_id;
 
 		        	   int time=0;
+		        
+		        	   System.out.println("TaskId ArrivalTime ServiceTime StartingTime FinishingTime TurnAroundTime WeightTurnAround");
 		        	   for(i=0;i<100;i++){
 		        		   for(int j=first_unserver;j<100;j++){
 		        			   if(Server[j]==false){//判断最靠前的任务是否被服务过
@@ -46,25 +48,30 @@ public class sjfone extends task{
 		        			   finishingTime[temp_id]=time+ServerTime[temp_id];
 		        			   turnAroundTime[temp_id]=finishingTime[temp_id]-ArrivedTime[temp_id];
 		        			   weightTurnAround[temp_id]=turnAroundTime[temp_id]/ServerTime[temp_id];
-		        			   System.out.print("这是第"+(temp_id+1)+"个任务  ");
-		        			   System.out.print("开始时间："+startingTime[temp_id]+"结束时间："+finishingTime[temp_id]);
-		        			   System.out.println("周转时间："+turnAroundTime[temp_id]+"带权周转时间："+ weightTurnAround[temp_id]);
+
 		        		   }else{
 		        			   startingTime[temp_id]=ArrivedTime[temp_id];
 		        			   finishingTime[temp_id]=ArrivedTime[temp_id]+ServerTime[temp_id];
 		        			   turnAroundTime[temp_id]=finishingTime[temp_id]-startingTime[temp_id];
 		        			   weightTurnAround[temp_id]=turnAroundTime[temp_id]/ServerTime[temp_id];
-		        			   System.out.print("这是第"+(temp_id+1)+"个任务  ");
-		        			   System.out.print("开始时间："+startingTime[temp_id]+"结束时间："+finishingTime[temp_id]);
-		        			   System.out.println("周转时间："+turnAroundTime[temp_id]+"带权周转时间："+ weightTurnAround[temp_id]);
+
 		        		   }
 		        		   time=finishingTime[temp_id];
 		        		   Server[temp_id]=true;
+		        	   }
+		        	   for(i=0;i<100;i++)
+		        	   {
+		        		   System.out.print(Task_id[i]+"        ");
+	        			   System.out.print(ArrivedTime[i]+"               ");
+	        			   System.out.print(ServerTime[i]+"          ");
+	        			   System.out.print(startingTime[i]+"          ");
+	        			   System.out.print(finishingTime[i]+"                 ");
+	        			   System.out.print(turnAroundTime[i]+"          ");
+	        			   System.out.println( weightTurnAround[i]);
 		        	   }
 		    		}catch(Exception e){
 		    			e.printStackTrace();//输出异常信息
 		    		}
 		    	}
 		    }
-	    }
-
+	}

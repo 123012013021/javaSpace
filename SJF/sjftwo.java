@@ -18,13 +18,14 @@ public class sjftwo extends task {
 	    		   scan.close();	              
 		           int FirstTime=0;//第一线程的时间
 		           int SecondTime=0;//第二线程的时间
-		           
+		           	           
 		           boolean ID[];//用来判断任务是否已经完成
 		           ID = new boolean [100];
 		           
 		           int NoServerID=0;//标记队列最前方未服务任务的序号
-		           int min=0;//最短作业所在序号	           
-	               for( i=0;i<100;i++){
+		           int min=0;//最短作业所在序号
+		           System.out.println("TaskId ArrivalTime ServiceTime StartingTime FinishingTime TurnAroundTime WeightTurnAround");
+	               for(i=0;i<100;i++){
 	            	   for(int j=NoServerID;j<100;j++){
 	            		   if(ID[j]==false){
 	            			   min=j;
@@ -40,18 +41,15 @@ public class sjftwo extends task {
 		    				   min=k;
 		    			   }
 		    		   }
-	            	   if(FirstTime<=ArrivedTime[min]){
+	            	   if(FirstTime<=ArrivedTime[min]){//如果第一线程空闲
 	            		   startingTime[min]=FirstTime;
 	            		   FirstTime=ArrivedTime[min]+ServerTime[min];
 	            		   finishingTime[min]=FirstTime;
 	            		   turnAroundTime[min]=finishingTime[min]-ArrivedTime[min];
 	            		   weightTurnAround[min]=turnAroundTime[min]/ServerTime[min];            		   
-	            		   System.out.print("这是第"+(min+1)+"个任务在第一线程中进行，开始时间是");
-	            		   System.out.print(startingTime[min]+",   结束时间是"+finishingTime[min]+",  ");
-	            		   System.out.print("周转时间"+turnAroundTime[min]+",  ");
-	            		   System.out.println("带权周转时间是"+weightTurnAround[min]);
-	            	   }else if(SecondTime<=ArrivedTime[min]){//如果第一线程正在运行任务，第二线程空闲     		
-	            		      if(SecondTime==0) {
+
+	            	   }else if(SecondTime<=ArrivedTime[min]){//如果第一线程正在运行任务，第二线程空闲
+	            		   if(SecondTime==0){
 	            			   SecondTime=ArrivedTime[min];
 	            		   }
 	            		   startingTime[min]=SecondTime;
@@ -59,21 +57,13 @@ public class sjftwo extends task {
 	            		   finishingTime[min]=SecondTime;
 	            		   turnAroundTime[min]=finishingTime[min]-ArrivedTime[min];
 	            		   weightTurnAround[min]=turnAroundTime[min]/ServerTime[min];            		   
-	            		   System.out.print("这是第"+(min+1)+"个任务在第二线程中进行，开始时间是");
-	            		   System.out.print(startingTime[min]+",  结束时间是"+finishingTime[min]+",  ");
-	            		   System.out.print("周转时间"+turnAroundTime[min]+",  ");
-	            		   System.out.println("带权周转时间是"+weightTurnAround[min]);
-	            		   
-	            	   }else if(FirstTime<=SecondTime){
+
+	            	   }else if(FirstTime<=SecondTime){//第一线程比第二线程提前空闲
 	            		   startingTime[min]=FirstTime;
 	            		   FirstTime=FirstTime+ServerTime[min];
 	            		   finishingTime[min]=FirstTime;
 	            		   turnAroundTime[min]=finishingTime[min]-ArrivedTime[min];
 	            		   weightTurnAround[min]=turnAroundTime[min]/ServerTime[min];            		   
-	            		   System.out.print("这是第"+(min+1)+"个任务在第一线程中进行，开始时间是");
-	            		   System.out.print(startingTime[min]+",  结束时间是"+finishingTime[min]+",  ");
-	            		   System.out.print("周转时间"+turnAroundTime[min]+",  ");
-	            		   System.out.println("带权周转时间是"+weightTurnAround[min]);
 
 	            	   }else{
 	            		   startingTime[min]=SecondTime;
@@ -81,12 +71,19 @@ public class sjftwo extends task {
 	            		   finishingTime[min]=SecondTime;
 	            		   turnAroundTime[min]=finishingTime[min]-ArrivedTime[min];
 	            		   weightTurnAround[min]=turnAroundTime[min]/ServerTime[min];            		   
-	            		   System.out.print("这是第"+(min+1)+"个任务在第二线程中进行，开始时间是");
-	            		   System.out.print(startingTime[min]+",  结束时间是"+finishingTime[min]+",  ");
-	            		   System.out.print("周转时间"+turnAroundTime[min]+",  ");
-	            		   System.out.println("带权周转时间是"+weightTurnAround[min]);
+
 	            	   }
 	            	   ID[min]=true;//将该任务已经完成
+	               }
+
+	               for(i=0;i<100;i++){
+	        		   System.out.print(Task_id[i]+"         ");
+        			   System.out.print(ArrivedTime[i]+"            ");
+        			   System.out.print(ServerTime[i]+"            ");
+        			   System.out.print(startingTime[i]+"            ");
+        			   System.out.print(finishingTime[i]+"            ");
+        			   System.out.print(turnAroundTime[i]+"            ");
+        			   System.out.println( weightTurnAround[i]);
 	               }
 	    		}catch(Exception e){
 	    			e.printStackTrace();//输出异常信息
