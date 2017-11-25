@@ -4,7 +4,7 @@
 用带缓冲和不带缓冲的字符流实现文件复制，并比较耗时情况。
 
 #### 带缓冲：
-------------------------------------------
+
 File rfile=new File("read.txt");
 		File wfile=new File("write.txt");
 		if(rfile.exists()){
@@ -22,9 +22,9 @@ File rfile=new File("read.txt");
 				ReadAndWrite();
 			}
   
-  -----------------
+ 
   #### 不带缓冲：
-  -----------------------------------------
+ 
 File file=new File("read.txt");
 		File sfile=new File("write.txt");
 		if(file.exists()){
@@ -41,7 +41,7 @@ File file=new File("read.txt");
 			}else{
 				sfile.createNewFile();
 				ReadWriteFile();
-  -----------
+ 
 
 #### 实验结果截图：
 
@@ -54,7 +54,7 @@ File file=new File("read.txt");
 类Student表示学生，属性包括{studentID, name, sex} (学号，姓名，性别)，使用序列化技术定义Student。学生信息从文件list.txt读入，并按照学号升序排列。注意，这里姓名和性别可以组织成String类型，而学号可以是String也可以是Long。
 使用ObjectOutputStream将已经排序的学生信息写出到文件“student.bin”中。
 使用ObjectInputStream将“student.bin”中的对象信息读入程序，显示在控制台中。
-----------------------------------
+
 #### 建student类 implements Serializable
 public class student implements Serializable {
 	private static final long serialVersionUID = 1234L;
@@ -87,7 +87,7 @@ public class student implements Serializable {
 	}
 
 #### 建Read_Write继承student类 主要有Read_List()、write（）、ReadFromNewFile()方法
---------------------------------------------------------
+
 public class Read_Write extends student{
 	public void Read_List(){
 		int i=0;
@@ -115,8 +115,7 @@ public class Read_Write extends student{
     	}else{
     		return ;
     	}
-	}
----------------------------------------
+	
     public void write(String[] StudentID,String[] Name,String[]Sex)throws FileNotFoundException,IOException{
 		int j;
 		int compare;
@@ -162,7 +161,6 @@ public class Read_Write extends student{
         	Read_List();
         }
 	}
-------------------------------------------------
     public void ReadFromNewFile()throws FileNotFoundException,IOException, ClassNotFoundException{//重新的文件里面读取出每个人的数据
 		ObjectInputStream ReadOb = new ObjectInputStream(new FileInputStream(new File("student.bin")));
 		student [] ST;
@@ -178,7 +176,7 @@ public class Read_Write extends student{
 		}
 	}
 
------------------------------------
+
 #### 实验截图：
 #### 实验结果截图：
 
