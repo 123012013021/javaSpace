@@ -19,8 +19,8 @@
 使用ObjectInputStream将“student.bin”中的对象信息读入程序，显示在控制台中。
 
 #### 建student类 implements Serializable	
-#### 建Read_Write继承student类 主要有Read_List()、write（）、ReadFromNewFile()方法
-#### 实验截图：
+#### 建Read_Write类继承student类 主要有Read_List()、write（）、ReadFromNewFile()方法
+
 #### 实验结果截图：
 
 ![](https://github.com/123012013021/javaSpace/blob/master/IO_2/img/2.png)<br>
