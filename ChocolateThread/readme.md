@@ -84,7 +84,7 @@ public class ChocolateBoiler implements Runnable {
 ### 实验结果截图：
  
 1.：<br>
-![](https://github.com/123012013021/javaSpace/blob/master/Fcfs/img/1.png)<br>
+![](https://github.com/123012013021/javaSpace/blob/master/ChocolateThread/img/1.png)<br>
 
 
 
