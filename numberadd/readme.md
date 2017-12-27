@@ -49,6 +49,7 @@ static int Sum=0;
 ```
 2. 
 实验截图：
+<br>
 ![](https://github.com/123012013021/javaSpace/blob/master/numberadd/img/2.png)
 
 
