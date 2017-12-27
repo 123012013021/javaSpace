@@ -1,39 +1,57 @@
-java的I/O操作
+javaJAVA多线程
+
 =======
 
-实验一 基本IO操作
+利用4个线程分段求和1~100
+线程1计算1~25之和；线程2计算26~50之和；以此类推
+要求线程1完成之后执行线程2，之后执行线程3，最后执行线程4
+打印每段求和结果，以及最后的总结果。即分别打印第一段求和结果，第二段求和结果，第三段求和结果，第四段求和结果，最终的求和结果
+
 ------------------
  ### 实验过程：
  
-1. 从键盘接收字节流，写入到当前目录下的文件src.txt中：
-![](https://github.com/123012013021/javaSpace/blob/master/IOstream/img/1.png)
-src.txt截图：
-![](https://github.com/123012013021/javaSpace/blob/master/IOstream/img/2.png)
+1. 主要代码
+```
+package numberadd;
 
-2. 将src.txt文件内容复制到当src.txt前目录下dest.txt文件中
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/3.png)
-dest.txt截图：
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/4.png)
-3. 将dest.txt文件内容显示到屏幕上：
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/5.png)
-通过main函数进行测试：
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/6.png)
-控制台输出截图
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/7.png)
+public class NumberAdd extends Thread{
+private static Thread []Add = new Thread[4];
+static int Sum=0;
+	int num;
+	public NumberAdd(int number){
+		num=number;
+	}
+	
+	public void run(){
+		int count=0;
+		for(int i=0;i<25;i++){
+			count=count+num;
+			num++;
+			
+		}
+		Sum=Sum+count;
+		System.out.print(count);
+	}
+	
+	public static void main(String []args) throws InterruptedException{
+		for(int i=0;i<Add.length;i++){//这里定义的i是线程数量
+			int k=i*25+1;
+			Add[i]= new Thread (new NumberAdd(k));
+			System.out.print("第"+(i+1)+"线程计算结果：");
+			Add[i].start();
+			Add[i].join();
+			System.out.println();
+		}
+		System.out.println("总和："+Sum);
+	}
+}
 
-实验二 获取系统的文件树
-------------------
-* 主要使用java.nio.file实现*
+```
+2. 
+实验截图：
+![](https://github.com/123012013021/javaSpace/blob/master/numberadd/img/2.png)
 
- ### 实验过程：
-1.  获取某个目录下的目录信息，目录从控制台输入。
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/11.png)
 
-2.  目录信息包括该目录下的所有文件和文件夹的列表。对于每个文件夹显示其名称，修改日期。对于每个文件显示其名称，修改日期和大小。
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/12.png)
-
-3. 目录的信息写出到文件中。注意，文件信息首先按类型分类，文件夹在前，文件在后，并且他们各自按照文件名字符串的顺序排序。
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/13.png)
 
 
 
