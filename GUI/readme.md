@@ -10,5 +10,5 @@
 ------------------
  ### 实验结果截图：
 1.  
-![](http://github.com/123012013021/javaSpace/blob/master/IOstream/img/11.png)
+![](https://github.com/123012013021/javaSpace/blob/master/GUI/img/1.png)
 
